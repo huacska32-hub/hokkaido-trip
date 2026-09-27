@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>北海道秋季之旅</title>
+    
+    <!-- Google Fonts: Zen Maru Gothic (日系圓潤可愛風) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        muji: {
+                            bg: '#F9F8F6', // 燕麥白背景
+                            card: '#FFFFFF',
+                            text: '#4A4A4A',
+                            primary: '#A3B19B', // 莫蘭迪綠
+                            accent: '#D4A373', // 溫暖木色
+                            border: '#E8E6E1',
+                            highlight: '#F4A261' // 醒目橘色
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Zen Maru Gothic"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'cute': '0 4px 12px rgba(0, 0, 0, 0.05)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #E8E6E1;
+            color: #4A4A4A;
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* 手機版型置中限制 */
+        #app-container {
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: #F9F8F6;
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        /* 隱藏卷軸但保留滾動功能 */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .tab-content {
+            display: none;
+            padding-bottom: 80px; /* 留給底部導覽列的空間 */
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* 漸層頂部 */
+        .header-bg {
+            background: linear-gradient(135deg, #A3B19B 0%, #C4D3BB 100%);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+<div id="app-container" class="flex flex-col h-screen overflow-hidden">
+    
+    <!-- 頂部 Header -->
+    <header class="header-bg text-white px-6 py-5 rounded-b-3xl shadow-sm z-10 shrink-0">
+        <div class="flex justify-between items-center">
+            <div>
+                <h1 class="text-xl font-bold tracking-wider">HOKKAIDO Trip</h1>
+                <p class="text-xs opacity-90 mt-1"><i class="fa-solid fa-plane-departure mr-1"></i>10/17 - 10/25</p>
+            </div>
+            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                <i class="fa-solid fa-leaf text-xl text-white"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要內容區 -->
+    <main class="flex-1 overflow-y-auto no-scrollbar p-5">
+        
+        <!-- ================= PLAN (行程表) ================= -->
+        <section id="tab-plan" class="tab-content active">
+            <h2 class="text-lg font-bold mb-4 text-muji-primary flex items-center">
+                <i class="fa-solid fa-calendar-days mr-2"></i> 行程總覽
+            </h2>
+            
+            <!-- 住宿與航班摘要 -->
+            <div class="bg-muji-card rounded-2xl p-4 shadow-cute mb-6 border border-muji-border">
+                <h3 class="font-bold text-sm text-muji-accent mb-2">📌 航班 & 住宿資訊</h3>
+                <ul class="text-xs space-y-2 text-muji-text">
+                    <li><i class="fa-solid fa-plane mr-2 text-muji-primary"></i>10/17 JX850 ➔ 10/25 JX851</li>
+                    <li><i class="fa-solid fa-bed mr-2 text-muji-primary"></i>10/17 千歳ステーションホテル</li>
+                    <li><i class="fa-solid fa-bed mr-2 text-muji-primary"></i>10/18 登別グランドホテル</li>
+                    <li><i class="fa-solid fa-bed mr-2 text-muji-primary"></i>10/19 洞爺乃之風</li>
+                    <li><i class="fa-solid fa-bed mr-2 text-muji-primary"></i>10/20-24 札幌 Airbnb (二條市場旁)</li>
+                </ul>
+            </div>
+
+            <!-- 10/18 行程 -->
+            <h3 class="font-bold text-md text-muji-text mb-3 bg-muji-primary/20 inline-block px-3 py-1 rounded-full">10/18 (登別)</h3>
+            <div class="relative border-l-2 border-muji-primary/30 ml-3 pl-5 mb-8 space-y-6">
+                
+                <div class="relative">
+                    <div class="absolute -left-[27px] top-1 w-3 h-3 bg-muji-highlight rounded-full ring-4 ring-muji-bg"></div>
+                    <div class="text-sm font-bold text-muji-highlight">09:00 - 09:30 (包車出發)</div>
+                    <div class="bg-muji-card p-3 rounded-2xl shadow-cute mt-2 border border-muji-border">
+                        <div class="flex justify-between items-start">
+                            <span class="font-bold text-muji-text">千歳神社</span>
+                            <a href="https://maps.google.com/?q=千歳神社" target="_blank" class="text-muji-primary text-xs bg-muji-primary/10 px-2 py-1 rounded-lg"><i class="fa-solid fa-map-location-dot"></i> 地圖</a>
+                        </div>
+                        <p class="text-xs mt-2 text-gray-500 leading-relaxed">車程10分。抽特產「姬鱒」造型御籤（支笏湖特產淡水魚），預計停留20分鐘。</p>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute -left-[27px] top-1 w-3 h-3 bg-muji-primary rounded-full ring-4 ring-muji-bg"></div>
+                    <div class="text-sm font-bold text-muji-primary">09:30 - 11:00</div>
+                    <div class="bg-muji-card p-3 rounded-2xl shadow-cute mt-2 border border-muji-border">
+                        <div class="flex justify-between items-start">
+                            <span class="font-bold text-muji-text">由仁花園 (Yuni Garden)</span>
+                            <a href="https://maps.google.com/?q=由仁花園" target="_blank" class="text-muji-primary text-xs bg-muji-primary/10 px-2 py-1 rounded-lg"><i class="fa-solid fa-map-location-dot"></i> 地圖</a>
+                        </div>
+                        <p class="text-xs mt-2 text-gray-500 leading-relaxed">車程30分。預留1小時散步拍照，欣賞紅色波波草海。</p>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute -left-[27px] top-1 w-3 h-3 bg-muji-primary rounded-full ring-4 ring-muji-bg"></div>
+                    <div class="text-sm font-bold text-muji-primary">11:00 - 14:00</div>
+                    <div class="bg-muji-card p-3 rounded-2xl shadow-cute mt-2 border border-muji-border">
+                        <div class="flex justify-between items-start">
+                            <span class="font-bold text-muji-text">支笏湖 + 午餐</span>
+                            <a href="https://maps.google.com/?q=支笏湖" target="_blank" class="text-muji-primary text-xs bg-muji-primary/10 px-2 py-1 rounded-lg"><i class="fa-solid fa-map-location-dot"></i> 地圖</a>
+                        </div>
+                        <p class="text-xs mt-2 text-gray-500 leading-relaxed">車程60分。可搭水中觀光船/獨木舟/天鵝船，欣賞清澈湛藍火山口湖面。</p>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute -left-[27px] top-1 w-3 h-3 bg-muji-primary rounded-full ring-4 ring-muji-bg"></div>
+                    <div class="text-sm font-bold text-muji-primary">15:30 - 18:00</div>
+                    <div class="bg-muji-card p-3 rounded-2xl shadow-cute mt-2 border border-muji-border">
+                        <div class="flex justify-between items-start">
+                            <span class="font-bold text-muji-text">登別地獄谷 + 足湯</span>
+                        </div>
+                        <p class="text-xs mt-2 text-gray-500 leading-relaxed">傍晚氣溫微涼，夕陽下的硫磺溫泉蒸氣神秘壯觀。步行至大湯沼川天然足湯免費泡腳。</p>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute -left-[27px] top-1 w-3 h-3 bg-muji-accent rounded-full ring-4 ring-muji-bg"></div>
+                    <div class="text-sm font-bold text-muji-accent">18:00 (結束包車)</div>
+                    <div class="bg-muji-card p-3 rounded-2xl shadow-cute mt-2 border border-muji-border">
+                        <div class="flex justify-between items-start">
+                            <span class="font-bold text-muji-text">飯店晚餐 & 閻魔堂變臉秀</span>
+                        </div>
+                        <p class="text-xs mt-2 text-gray-500 leading-relaxed">晚餐後可去商店街，20:00與21:00有「地獄審判變臉秀」。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 10/19 行程 -->
+            <h3 class="font-bold text-md text-muji-text mb-3 bg-muji-primary/20 inline-block px-3 py-1 rounded-full">10/19 (洞爺湖)</h3>
+            <div class="relative border-l-2 border-muji-primary/30 ml-3 pl-5 mb-8 space-y-6">
+                
+                <div class="relative">
+                    <div class="absolute -left-[27px] top-1 w-3 h-3 bg-muji-primary rounded-full ring-4 ring-muji-bg"></div>
+                    <div class="text-sm font-bold text-muji-primary">09:30 - 11:00</div>
+                    <div class="bg-muji-card p-3 rounded-2xl shadow-cute mt-2 border border-muji-border">
+                        <span class="font-bold text-muji-text">登別棕熊牧場</span>
+                        <p class="text-xs mt-2 text-gray-500">搭纜車上山，買零食餵會招手要食物的可愛棕熊。</p>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <div class="absolute -left-[27px] top-1 w-3 h-3 bg-muji-primary rounded-full ring-4 ring-muji-bg"></div>
+                    <div class="text-sm font-bold text-muji-primary">13:00 - 14:30</div>
+                    <div class="bg-muji-card p-3 rounded-2xl shadow-cute mt-2 border border-muji-border">
+                        <span class="font-bold text-muji-text">搭船登洞爺湖中島</span>
+                        <p class="text-xs mt-2 text-gray-500">13:00船班(船程20分)。漫步島上原始森林，免費參觀湖之森博物館，搭14:00船回程。</p>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute -left-[27px] top-1 w-3 h-3 bg-muji-primary rounded-full ring-4 ring-muji-bg"></div>
+                    <div class="text-sm font-bold text-muji-primary">14:30 - 16:30</div>
+                    <div class="bg-muji-card p-3 rounded-2xl shadow-cute mt-2 border border-muji-border">
+                        <span class="font-bold text-muji-text">有珠山纜車及昭和新山</span>
+                        <p class="text-xs mt-2 text-gray-500">近距離觀賞活火山，搭6分鐘纜車前往有珠山頂俯瞰壯麗大景。</p>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute -left-[27px] top-1 w-3 h-3 bg-muji-accent rounded-full ring-4 ring-muji-bg"></div>
+                    <div class="text-sm font-bold text-muji-accent">20:45 - 21:05</div>
+                    <div class="bg-muji-card p-3 rounded-2xl shadow-cute mt-2 border border-muji-border">
+                        <span class="font-bold text-muji-text">洞爺湖上花火大會</span>
+                        <p class="text-xs mt-2 text-gray-500">在飯店面湖房間或頂樓露天風呂欣賞湖面煙火。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 10/20 行程 -->
+            <h3 class="font-bold text-md text-muji-text mb-3 bg-muji-primary/20 inline-block px-3 py-1 rounded-full">10/20 (定山溪 & 札幌)</h3>
+            <div class="relative border-l-2 border-muji-primary/30 ml-3 pl-5 mb-8 space-y-6">
+                
+                <div class="relative">
+                    <div class="absolute -left-[27px] top-1 w-3 h-3 bg-muji-primary rounded-full ring-4 ring-muji-bg"></div>
+                    <div class="text-sm font-bold text-muji-primary">10:30 - 11:30</div>
+                    <div class="bg-muji-card p-3 rounded-2xl shadow-cute mt-2 border border-muji-border">
+                        <span class="font-bold text-muji-text">Lake Hill Farm</span>
+                        <p class="text-xs mt-2 text-gray-500">品嚐超人氣義式冰淇淋，看著羊蹄山與大草皮拍照。</p>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute -left-[27px] top-1 w-3 h-3 bg-muji-primary rounded-full ring-4 ring-muji-bg"></div>
+                    <div class="text-sm font-bold text-muji-primary">13:00 - 14:30</div>
+                    <div class="bg-muji-card p-3 rounded-2xl shadow-cute mt-2 border border-muji-border">
+                        <span class="font-bold text-muji-text">午餐：紅葉亭</span>
+                        <a href="https://maps.google.com/?q=定山溪紅葉亭" target="_blank" class="text-muji-primary text-xs bg-muji-primary/10 px-2 py-1 rounded-lg float-right"><i class="fa-solid fa-utensils"></i> 食記</a>
+                        <p class="text-xs mt-2 text-gray-500">定山溪知名蕎麥麵與天婦羅老店。吃飽後溫泉街散步。</p>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute -left-[27px] top-1 w-3 h-3 bg-muji-highlight rounded-full ring-4 ring-muji-bg"></div>
+                    <div class="text-sm font-bold text-muji-highlight">14:50 (重要場次)</div>
+                    <div class="bg-muji-card p-3 rounded-2xl shadow-cute mt-2 border border-muji-border">
+                        <span class="font-bold text-muji-text">Amuse Sport 獨木舟</span>
+                        <p class="text-xs mt-2 text-gray-500">豐平川上划獨木舟，從水面仰望兩岸秋意染紅的溪谷（約需抓80-90分）。</p>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute -left-[27px] top-1 w-3 h-3 bg-muji-primary rounded-full ring-4 ring-muji-bg"></div>
+                    <div class="text-sm font-bold text-muji-primary">16:30 - 18:30</div>
+                    <div class="bg-muji-card p-3 rounded-2xl shadow-cute mt-2 border border-muji-border">
+                        <span class="font-bold text-muji-text">藻岩山賞夜景</span>
+                        <p class="text-xs mt-2 text-gray-500">搭纜車上山，無縫接軌看夕陽餘暉與日本新三大夜景。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center text-xs text-gray-400 py-4">10/21 - 10/25 待安排...</div>
+        </section>
+
+        <!-- ================= GUIDE (深度導覽) ================= -->
+        <section id="tab-guide" class="tab-content">
+            <h2 class="text-lg font-bold mb-4 text-muji-primary flex items-center">
+                <i class="fa-solid fa-book-open mr-2"></i> 景點手冊
+            </h2>
+            
+            <div class="space-y-6">
+                <!-- Guide Card 1 -->
+                <div class="bg-muji-card rounded-3xl overflow-hidden shadow-cute border border-muji-border">
+                    <div class="h-32 bg-muji-accent/30 flex items-center justify-center">
+                        <i class="fa-solid fa-volcano text-4xl text-muji-accent/50"></i>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-bold tracking-widest text-muji-accent uppercase">Noboribetsu</span>
+                        <h3 class="text-lg font-black mt-1 mb-2">登別地獄谷</h3>
+                        <p class="text-xs text-gray-600 leading-loose mb-4">
+                            大約在一萬年前，日和山火山爆發所形成的火山口遺跡。直徑約450公尺，面積約11公頃。沿著木棧道漫步，強烈的硫磺味撲鼻而來，沸騰的溫泉與白煙交織出宛如地獄般的奇景。秋季時，周圍山林染上紅黃秋色，與地獄谷的荒涼形成強烈對比。
+                        </p>
+                        <div class="rounded-xl overflow-hidden h-40">
+                            <!-- OpenStreetMap iframe for 登別地獄谷 -->
+                            <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=141.1407%2C42.4965%2C141.1507%2C42.5005&amp;layer=mapnik" style="border: 1px solid #E8E6E1"></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guide Card 2 -->
+                <div class="bg-muji-card rounded-3xl overflow-hidden shadow-cute border border-muji-border">
+                    <div class="h-32 bg-blue-100 flex items-center justify-center">
+                        <i class="fa-solid fa-water text-4xl text-blue-300"></i>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-bold tracking-widest text-blue-400 uppercase">Lake Toya</span>
+                        <h3 class="text-lg font-black mt-1 mb-2">洞爺湖與有珠山</h3>
+                        <p class="text-xs text-gray-600 leading-loose">
+                            洞爺湖是日本面積第九大的湖泊，也是不凍湖的最北端。搭乘遊覽船登上湖中心的「中島」，可以感受到未受破壞的原始森林氣息。鄰近的有珠山是活躍的活火山，20世紀就噴發了四次，搭乘纜車登頂，能同時把洞爺湖與太平洋的美景盡收眼底。晚上的花火大會更是從4月下旬一路施放到10月底的夢幻盛事。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= WALLET (記帳與匯率) ================= -->
+        <section id="tab-wallet" class="tab-content">
+            <h2 class="text-lg font-bold mb-4 text-muji-primary flex items-center">
+                <i class="fa-solid fa-wallet mr-2"></i> 記帳 & 匯率
+            </h2>
+            
+            <!-- Calculator / Currency Converter -->
+            <div class="bg-muji-card rounded-2xl p-5 shadow-cute border border-muji-border mb-6">
+                <h3 class="font-bold text-sm mb-3">🧮 即時匯率換算 (匯率: 0.20)</h3>
+                <div class="flex items-center space-x-2 mb-3">
+                    <input type="text" id="calc-input" placeholder="輸入算式 (例: 500+200*3)" class="flex-1 bg-muji-bg border border-muji-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-muji-primary">
+                    <button onclick="calculateRate()" class="bg-muji-primary text-white px-4 py-2 rounded-xl text-sm font-bold shadow-md">=</button>
+                </div>
+                <div class="bg-muji-bg rounded-xl p-3 flex justify-between items-center">
+                    <div>
+                        <div class="text-[10px] text-gray-400">總額 (JPY)</div>
+                        <div class="font-bold text-lg" id="calc-jpy">¥ 0</div>
+                    </div>
+                    <i class="fa-solid fa-arrow-right-arrow-left text-muji-border"></i>
+                    <div class="text-right">
+                        <div class="text-[10px] text-gray-400">折合台幣 (TWD)</div>
+                        <div class="font-bold text-lg text-muji-accent" id="calc-twd">NT$ 0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expense Form -->
+            <div class="bg-muji-card rounded-2xl p-5 shadow-cute border border-muji-border mb-6">
+                <h3 class="font-bold text-sm mb-3">📝 新增記帳</h3>
+                <input type="text" id="expense-name" placeholder="品項 (如: 晚餐拉麵)" class="w-full bg-muji-bg border border-muji-border rounded-xl px-3 py-2 text-sm mb-3 focus:outline-none">
+                <input type="number" id="expense-amount" placeholder="日幣金額 (¥)" class="w-full bg-muji-bg border border-muji-border rounded-xl px-3 py-2 text-sm mb-3 focus:outline-none">
+                
+                <div class="flex items-center justify-between mb-4">
+                    <label class="flex-1 bg-muji-bg border border-dashed border-muji-primary/50 rounded-xl p-3 text-center cursor-pointer text-xs text-muji-primary hover:bg-muji-primary/10 transition">
+                        <i class="fa-solid fa-camera mb-1 text-lg block"></i> 上傳收據/照片
+                        <input type="file" id="expense-photo" accept="image/*" class="hidden" onchange="previewImage(event)">
+                    </label>
+                    <img id="photo-preview" class="hidden w-16 h-16 object-cover rounded-xl ml-3 border border-muji-border">
+                </div>
+                
+                <button onclick="addExpense()" class="w-full bg-muji-accent text-white py-2.5 rounded-xl text-sm font-bold shadow-md hover:bg-opacity-90">儲存紀錄</button>
+            </div>
+
+            <!-- Expense List -->
+            <h3 class="font-bold text-sm mb-3 text-muji-text">📊 歷史紀錄</h3>
+            <div id="expense-list" class="space-y-3">
+                <!-- JS generated items go here -->
+            </div>
+            
+            <div class="flex justify-between items-center mt-4 p-3 bg-muji-text text-white rounded-xl shadow-md">
+                <span class="text-sm font-bold">總花費</span>
+                <div class="text-right">
+                    <div class="text-sm font-bold" id="total-jpy">¥ 0</div>
+                    <div class="text-xs text-gray-300" id="total-twd">NT$ 0</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= LISTS (清單) ================= -->
+        <section id="tab-lists" class="tab-content">
+            <h2 class="text-lg font-bold mb-4 text-muji-primary flex items-center">
+                <i class="fa-solid fa-list-check mr-2"></i> 行前準備與備忘
+            </h2>
+            
+            <!-- Checklist -->
+            <div class="bg-muji-card rounded-2xl p-5 shadow-cute border border-muji-border mb-6">
+                <h3 class="font-bold text-sm mb-3 border-b border-muji-bg pb-2">🎒 必備清單</h3>
+                <div id="checklist-container" class="space-y-2 mt-3 text-sm">
+                    <!-- JS generated checkboxes -->
+                </div>
+            </div>
+
+            <!-- Memo -->
+            <div class="bg-muji-card rounded-2xl p-5 shadow-cute border border-muji-border">
+                <h3 class="font-bold text-sm mb-3 border-b border-muji-bg pb-2">💡 個人備忘錄</h3>
+                <p class="text-[10px] text-gray-400 mb-2">貼上網址會自動轉換成按鈕喔！</p>
+                <textarea id="memo-input" rows="4" placeholder="輸入筆記或網址..." class="w-full bg-muji-bg border border-muji-border rounded-xl p-3 text-sm focus:outline-none focus:border-muji-primary mb-3" oninput="saveMemo()"></textarea>
+                
+                <div id="memo-display" class="bg-muji-bg/50 p-3 rounded-xl min-h-[60px] text-sm whitespace-pre-wrap word-break"></div>
+            </div>
+        </section>
+
+        <!-- ================= INFO (資訊) ================= -->
+        <section id="tab-info" class="tab-content">
+            <h2 class="text-lg font-bold mb-4 text-muji-primary flex items-center">
+                <i class="fa-solid fa-circle-info mr-2"></i> 實用資訊
+            </h2>
+
+            <div class="grid grid-cols-2 gap-3 mb-6">
+                <a href="https://tenki.jp/forecast/1/2/" target="_blank" class="bg-muji-card p-4 rounded-2xl shadow-cute border border-muji-border text-center flex flex-col items-center justify-center">
+                    <i class="fa-solid fa-cloud-sun text-2xl text-blue-400 mb-2"></i>
+                    <span class="text-sm font-bold">北海道天氣</span>
+                </a>
+                <a href="https://vjw-lp.digital.go.jp/zh-hant/" target="_blank" class="bg-muji-card p-4 rounded-2xl shadow-cute border border-muji-border text-center flex flex-col items-center justify-center">
+                    <i class="fa-solid fa-passport text-2xl text-muji-primary mb-2"></i>
+                    <span class="text-sm font-bold">Visit Japan Web</span>
+                </a>
+            </div>
+
+            <div class="bg-muji-card rounded-2xl p-5 shadow-cute border border-muji-border mb-6">
+                <h3 class="font-bold text-sm mb-3 text-red-500 flex items-center">
+                    <i class="fa-solid fa-phone-volume mr-2"></i> 緊急聯絡
+                </h3>
+                <ul class="text-sm space-y-3">
+                    <li class="flex justify-between items-center border-b border-muji-bg pb-2">
+                        <span>報警 (警察)</span>
+                        <a href="tel:110" class="bg-red-50 text-red-500 px-3 py-1 rounded-lg font-bold">110</a>
+                    </li>
+                    <li class="flex justify-between items-center border-b border-muji-bg pb-2">
+                        <span>救護車/火警</span>
+                        <a href="tel:119" class="bg-red-50 text-red-500 px-3 py-1 rounded-lg font-bold">119</a>
+                    </li>
+                    <li class="flex justify-between items-center">
+                        <span class="text-xs">台北駐日經濟文化代表處(札幌)</span>
+                        <a href="tel:011-222-2930" class="bg-muji-primary/10 text-muji-primary px-3 py-1 rounded-lg font-bold text-xs">011-222-2930</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-muji-card rounded-2xl p-5 shadow-cute border border-muji-border">
+                <h3 class="font-bold text-sm mb-3 text-muji-accent flex items-center">
+                    <i class="fa-solid fa-triangle-exclamation mr-2"></i> 注意事項與禁忌
+                </h3>
+                <ul class="text-xs space-y-2 list-disc pl-4 text-gray-600 leading-relaxed">
+                    <li><strong>防熊對策：</strong>若進入山區或自然步道，務必攜帶熊鈴或播放音樂，結伴同行。遇到熊請緩步後退，勿驚聲尖叫或轉身逃跑。</li>
+                    <li><strong>溫泉禮儀：</strong>進入溫泉池前需將身體洗淨，毛巾不可放入溫泉池中。有大面積刺青者需確認飯店規定。</li>
+                    <li><strong>入境規定：</strong>嚴禁攜帶肉類製品（包含肉乾、香腸）、新鮮水果入境日本。</li>
+                    <li><strong>垃圾分類：</strong>日本垃圾分類極為嚴格，路邊鮮少有垃圾桶，建議隨身攜帶小塑膠袋裝垃圾回飯店丟棄。</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 底部導覽列 -->
+    <nav class="bg-white border-t border-muji-border px-2 py-3 pb-6 fixed bottom-0 w-full max-w-[480px] z-20 flex justify-around shadow-[0_-4px_12px_rgba(0,0,0,0.03)] rounded-t-2xl">
+        <button onclick="switchTab('plan')" class="nav-btn active flex flex-col items-center text-gray-400 hover:text-muji-primary transition-colors w-1/5" data-target="plan">
+            <i class="fa-solid fa-calendar-days text-xl mb-1"></i>
+            <span class="text-[10px] font-bold">PLAN</span>
+        </button>
+        <button onclick="switchTab('guide')" class="nav-btn flex flex-col items-center text-gray-400 hover:text-muji-primary transition-colors w-1/5" data-target="guide">
+            <i class="fa-solid fa-book-open text-xl mb-1"></i>
+            <span class="text-[10px] font-bold">GUIDE</span>
+        </button>
+        <button onclick="switchTab('wallet')" class="nav-btn flex flex-col items-center text-gray-400 hover:text-muji-primary transition-colors w-1/5" data-target="wallet">
+            <i class="fa-solid fa-wallet text-xl mb-1"></i>
+            <span class="text-[10px] font-bold">WALLET</span>
+        </button>
+        <button onclick="switchTab('lists')" class="nav-btn flex flex-col items-center text-gray-400 hover:text-muji-primary transition-colors w-1/5" data-target="lists">
+            <i class="fa-solid fa-list-check text-xl mb-1"></i>
+            <span class="text-[10px] font-bold">LISTS</span>
+        </button>
+        <button onclick="switchTab('info')" class="nav-btn flex flex-col items-center text-gray-400 hover:text-muji-primary transition-colors w-1/5" data-target="info">
+            <i class="fa-solid fa-circle-info text-xl mb-1"></i>
+            <span class="text-[10px] font-bold">INFO</span>
+        </button>
+    </nav>
+</div>
+
+<!-- Scripts -->
+<script>
+    // === Tab Switching Logic ===
+    function switchTab(tabId) {
+        // Hide all tabs
+        document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        // Show target tab
+        document.getElementById('tab-' + tabId).classList.add('active');
+        
+        // Update nav styling
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            if(btn.dataset.target === tabId) {
+                btn.classList.remove('text-gray-400');
+                btn.classList.add('text-muji-primary');
+            } else {
+                btn.classList.remove('text-muji-primary');
+                btn.classList.add('text-gray-400');
+            }
+        });
+    }
+
+    // Initialize nav styling
+    document.querySelector('.nav-btn[data-target="plan"]').classList.remove('text-gray-400');
+    document.querySelector('.nav-btn[data-target="plan"]').classList.add('text-muji-primary');
+
+    // === WALLET Logic ===
+    const JPY_RATE = 0.20;
+    let expenses = JSON.parse(localStorage.getItem('hokkaido_expenses')) || [];
+
+    function calculateRate() {
+        const input = document.getElementById('calc-input').value;
+        try {
+            // Very simple math eval (safe for client side only app)
+            const sanitized = input.replace(/[^-()\d/*+.]/g, '');
+            const result = eval(sanitized);
+            if(result !== undefined) {
+                document.getElementById('calc-jpy').innerText = `¥ ${Math.round(result)}`;
+                document.getElementById('calc-twd').innerText = `NT$ ${Math.round(result * JPY_RATE)}`;
+            }
+        } catch(e) {
+            alert('算式格式錯誤');
+        }
+    }
+
+    // Image Compression using Canvas
+    let currentBase64Image = null;
+    function previewImage(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                const MAX_WIDTH = 300; // Keep small for localStorage limits
+                const scaleSize = MAX_WIDTH / img.width;
+                canvas.width = MAX_WIDTH;
+                canvas.height = img.height * scaleSize;
+                
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                
+                // Compress to base64 jpeg
+                currentBase64Image = canvas.toDataURL('image/jpeg', 0.5);
+                
+                const preview = document.getElementById('photo-preview');
+                preview.src = currentBase64Image;
+                preview.classList.remove('hidden');
+            }
+            img.src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+
+    function addExpense() {
+        const name = document.getElementById('expense-name').value;
+        const amount = document.getElementById('expense-amount').value;
+        
+        if (!name || !amount) {
+            alert('請輸入名稱與金額');
+            return;
+        }
+
+        const expense = {
+            id: Date.now(),
+            name: name,
+            amount: parseInt(amount),
+            image: currentBase64Image
+        };
+
+        expenses.unshift(expense);
+        
+        try {
+            localStorage.setItem('hokkaido_expenses', JSON.stringify(expenses));
+            // Reset form
+            document.getElementById('expense-name').value = '';
+            document.getElementById('expense-amount').value = '';
+            document.getElementById('photo-preview').classList.add('hidden');
+            currentBase64Image = null;
+            document.getElementById('expense-photo').value = '';
+            renderExpenses();
+        } catch (e) {
+            alert('儲存空間不足，請先刪除一些帶有圖片的記帳紀錄。');
+            expenses.shift(); // remove if failed
+        }
+    }
+
+    function deleteExpense(id) {
+        expenses = expenses.filter(e => e.id !== id);
+        localStorage.setItem('hokkaido_expenses', JSON.stringify(expenses));
+        renderExpenses();
+    }
+
+    function renderExpenses() {
+        const list = document.getElementById('expense-list');
+        list.innerHTML = '';
+        let totalJpy = 0;
+
+        expenses.forEach(exp => {
+            totalJpy += exp.amount;
+            const twd = Math.round(exp.amount * JPY_RATE);
+            
+            let imgHTML = '';
+            if (exp.image) {
+                imgHTML = `<img src="${exp.image}" class="w-12 h-12 object-cover rounded-lg border border-muji-border mr-3" onclick="window.open('${exp.image}', '_blank')">`;
+            }
+
+            list.innerHTML += `
+                <div class="bg-white p-3 rounded-xl shadow-sm border border-muji-border flex items-center justify-between">
+                    <div class="flex items-center flex-1">
+                        ${imgHTML}
+                        <div>
+                            <div class="text-sm font-bold text-muji-text">${exp.name}</div>
+                            <div class="text-xs text-gray-400">NT$ ${twd}</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="font-bold text-muji-primary mr-3">¥ ${exp.amount}</div>
+                        <button onclick="deleteExpense(${exp.id})" class="text-red-400 hover:text-red-600"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                </div>
+            `;
+        });
+
+        document.getElementById('total-jpy').innerText = `¥ ${totalJpy}`;
+        document.getElementById('total-twd').innerText = `NT$ ${Math.round(totalJpy * JPY_RATE)}`;
+    }
+
+
+    // === LISTS Logic ===
+    const defaultChecklist = [
+        "護照", "網卡", "保險", "熊噴霧/熊鈴", "日幣", 
+        "信用卡", "充電器", "行動電源", "冬天衣物", "暖暖包"
+    ];
+    
+    let userChecklist = JSON.parse(localStorage.getItem('hokkaido_checklist')) || 
+                        defaultChecklist.map(item => ({name: item, checked: false}));
+
+    function renderChecklist() {
+        const container = document.getElementById('checklist-container');
+        container.innerHTML = '';
+        userChecklist.forEach((item, index) => {
+            container.innerHTML += `
+                <label class="flex items-center space-x-3 p-2 hover:bg-muji-bg rounded-lg cursor-pointer transition">
+                    <input type="checkbox" class="w-4 h-4 text-muji-primary rounded border-gray-300 focus:ring-muji-primary" 
+                           ${item.checked ? 'checked' : ''} 
+                           onchange="toggleCheck(${index})">
+                    <span class="${item.checked ? 'line-through text-gray-400' : 'text-muji-text'}">${item.name}</span>
+                </label>
+            `;
+        });
+    }
+
+    function toggleCheck(index) {
+        userChecklist[index].checked = !userChecklist[index].checked;
+        localStorage.setItem('hokkaido_checklist', JSON.stringify(userChecklist));
+        renderChecklist();
+    }
+
+    // Memo Logic
+    function saveMemo() {
+        const val = document.getElementById('memo-input').value;
+        localStorage.setItem('hokkaido_memo', val);
+        renderMemo(val);
+    }
+
+    function renderMemo(text) {
+        const displayArea = document.getElementById('memo-display');
+        if(!text) {
+            displayArea.innerHTML = '<span class="text-gray-400 text-xs italic">尚未輸入筆記...</span>';
+            return;
+        }
+        
+        // URL auto-linking logic
+        const urlRegex = /(https?:\/\/[^\s]+)/g;
+        const html = text.replace(urlRegex, function(url) {
+            return `<a href="${url}" target="_blank" class="inline-block mt-1 bg-muji-primary/10 text-muji-primary border border-muji-primary/20 px-3 py-1 rounded-full text-xs font-bold hover:bg-muji-primary/20 transition"><i class="fa-solid fa-link mr-1"></i>開啟連結</a>`;
+        });
+        
+        displayArea.innerHTML = html;
+    }
+
+    function loadMemo() {
+        const val = localStorage.getItem('hokkaido_memo') || '';
+        document.getElementById('memo-input').value = val;
+        renderMemo(val);
+    }
+
+    // Initialize all data on load
+    window.onload = () => {
+        renderExpenses();
+        renderChecklist();
+        loadMemo();
+    };
+
+</script>
+</body>
+</html>
